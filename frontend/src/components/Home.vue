@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'home',
   data () {
@@ -34,29 +36,45 @@ export default {
   },
   methods: {
     addBook(){
-      this.$http.get('http://127.0.0.1:8000/api/add_book?book_name=' + this.input)
-        .then((response) => {
-            var res = JSON.parse(response.bodyText)
-            if (res.error_num == 0) {
-              this.showBooks()
-            } else {
-              this.$message.error('新增书籍失败，请重试')
-              console.log(res['msg'])
-            }
-        })
+      // axios.get('http://127.0.0.1:8000/api/add_book?book_name=' + this.input)
+      //   .then(function(response) {
+      //     console.log(response)
+      //   })
+      //   .catch(function(error) {
+      //     console.log(error);
+      //   })
+
+      // this.$http.get('http://127.0.0.1:8000/api/add_book?book_name=' + this.input)
+      //   .then((response) => {
+      //       var res = JSON.parse(response.bodyText)
+      //       if (res.error_num == 0) {
+      //         this.showBooks()
+      //       } else {
+      //         this.$message.error('新增书籍失败，请重试')
+      //         console.log(res['msg'])
+      //       }
+      //   })
     },
     showBooks(){
-      this.$http.get('http://127.0.0.1:8000/api/show_books')
-        .then((response) => {
-            var res = JSON.parse(response.bodyText)
-            console.log(res)
-            if (res.error_num == 0) {
-              this.bookList = res['list']
-            } else {
-              this.$message.error('查询书籍失败')
-              console.log(res['msg'])
-            }
+      axios.get('http://127.0.0.1:8000/api/show_books')
+        .then(function(response) {
+          console.log(response)
         })
+        .catch(function(error) {
+          console.log(error)
+        })
+
+      // this.$http.get('http://127.0.0.1:8000/api/show_books')
+      //   .then((response) => {
+      //       var res = JSON.parse(response.bodyText)
+      //       console.log(res)
+      //       if (res.error_num == 0) {
+      //         this.bookList = res['list']
+      //       } else {
+      //         this.$message.error('查询书籍失败')
+      //         console.log(res['msg'])
+      //       }
+      //   })
     }
   }
 }
