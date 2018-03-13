@@ -33,10 +33,10 @@ def show_books(request):
         books = Book.objects.filter()
         response['list']  = json.loads(serializers.serialize("json", books))
         response['msg'] = 'success'
-        response['error_num'] = 0
+        response['error_num'] = 10
     except  Exception as e:
         response['msg'] = str(e)
-        response['error_num'] = 1
+        response['error_num'] = 11
 
     return JsonResponse(response)
 
