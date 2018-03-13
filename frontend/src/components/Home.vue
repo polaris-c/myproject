@@ -31,23 +31,24 @@ export default {
       bookList: []
     }
   },
+
   mounted: function () {
     this.showBooks()
   },
+
   methods: {
     addBook () {
       let newBook = this.input
-      this.$http.get('http://127.0.0.1:8000/api/add_book?book_name=' + this.input)
+      this.$http.get('http://127.0.0.1:8000/api/add_book?book_name=' + newBook)
         .then((response) => {
           console.log(response)
           let resData = response.data
-
-          if (resData.error_num == 0) {
-            alert(newBook)
+          if (resData.error_num === 0) {
+            alert('New Book:' + newBook)
             this.showBooks()
           } else {
             this.$message.error('新增书籍失败，请重试')
-            console.log(res['msg'])
+            console.log(resData['msg'])
           }
         })
         .catch((error) => {
@@ -70,13 +71,11 @@ export default {
         .then((response) => {
           console.log('response', response)
           let resData = response.data
-          // console.log('resData:', resData)
-
-          if (resData.error_num == 0) {
+          if (resData.error_num === 0) {
             this.bookList = resData['list']
           } else {
             this.$message.error('查询书籍失败')
-            console.log(res['msg'])
+            console.log(resData['msg'])
           }
         })
         .catch((error) => {
